@@ -3,16 +3,24 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import App from './components/app';
+import Helmet from 'react-helmet';
+
+import App from './containers/index';
 import reducers from './reducers';
 
+
 export default (req, res) => {
+	const helmet = Helmet.renderStatic();
 	if(process.env.NODE_ENV === 'development') {
 		res.send(`
 			<!doctype html>
-			<html>
-				<head>
-					<title>My Universal App</title>
+			<html ${helmet.htmlAttributes.toString()}>
+				<head ${helmet.bodyAttributes.toString()}>
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<title>React App :)</title>
+					${helmet.title.toString()}
+					${helmet.meta.toString()}
+					${helmet.link.toString()}
 				</head>
 				<body>
 					<div id='app'></div>
@@ -20,13 +28,17 @@ export default (req, res) => {
 				</body>
 			</html>
 		`);
-	} else if(process.env.NODE_ENV === 'production') {
+	} else if(process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
 		res.send(`
 			<!doctype html>
-			<html>
-				<head>
-					<title>My Universal App</title>
-					<link rel='stylesheet' href='bundle.css'>
+			<html ${helmet.htmlAttributes.toString()}>
+				<head ${helmet.bodyAttributes.toString()}>
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<title>React App :)</title>
+					${helmet.title.toString()}
+					${helmet.meta.toString()}
+					${helmet.link.toString()}
+					<link type="text/css" href='bundle.css'>
 				</head>
 				<body>
 					<div id='app'>${renderToString(

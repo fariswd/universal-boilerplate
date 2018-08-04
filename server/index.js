@@ -2,6 +2,7 @@ import path from 'path';
 import express from 'express';
 import webpack from 'webpack';
 import middleware from '../src/middleware';
+import Api from './Api'
 
 const app = express();
 
@@ -25,8 +26,11 @@ if(process.env.NODE_ENV === 'development') {
 	app.use(express.static(path.resolve(__dirname, '../src')));
 } else if(process.env.NODE_ENV === 'production') {
 	app.use(express.static(path.resolve(__dirname, '../dist')));
+} else if(process.env.NODE_ENV === 'staging') {
+	app.use(express.static(path.resolve(__dirname, '../dist')));
 }
 
+app.use('/api', Api)
 app.get('*', middleware);
 
 app.listen(3000, '0.0.0.0', (err) => {

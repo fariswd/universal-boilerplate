@@ -7,6 +7,7 @@
     "lint": "eslint ./src",
     "start": "cross-env NODE_ENV=development babel-node ./server/index.js",
     "build": "rimraf dist && webpack --config ./webpack.config.prod.js",
+    "stage": "npm run build && cross-env NODE_ENV=staging babel-node ./server/index.js",
     "serve": "cross-env NODE_ENV=production babel-node ./server/index.js"
   },
   "author": "Justin Jung <justinjung04@gmail.com>",
@@ -48,5 +49,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/justinjung04/universal-boilerplate.git"
+  },
+  "dependencies": {
+    "react-helmet": "^5.2.0"
   }
 }
