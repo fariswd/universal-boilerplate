@@ -1,12 +1,12 @@
 import path from 'path';
 import express from 'express';
 import webpack from 'webpack';
-import middleware from './src/middleware';
+import middleware from '../src/middleware';
 
 const app = express();
 
 if(process.env.NODE_ENV === 'development') {
-	const config = require('./webpack.config.dev');
+	const config = require('../webpack.config.dev');
 	const compiler = webpack(config);
 	app.use(require('webpack-dev-middleware')(compiler, {
 		noInfo: true,
@@ -22,9 +22,9 @@ if(process.env.NODE_ENV === 'development') {
 		}
 	}));
 	app.use(require('webpack-hot-middleware')(compiler));
-	app.use(express.static(path.resolve(__dirname, 'src')));
+	app.use(express.static(path.resolve(__dirname, '../src')));
 } else if(process.env.NODE_ENV === 'production') {
-	app.use(express.static(path.resolve(__dirname, 'dist')));
+	app.use(express.static(path.resolve(__dirname, '../dist')));
 }
 
 app.get('*', middleware);
