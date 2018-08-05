@@ -1,14 +1,15 @@
 import React from 'react';
 import { hydrate, render } from 'react-dom';
+import thunk from 'redux-thunk'
 import { createBrowserHistory } from 'history';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import App from './containers/index';
 import reducers from './reducers';
+import store from './config/store'
 
 const history = createBrowserHistory();
-const store = createStore(reducers, applyMiddleware(routerMiddleware(history)));
 
 if(process.env.NODE_ENV === 'development') {
   render(

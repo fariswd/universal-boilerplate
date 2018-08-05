@@ -42,21 +42,23 @@ module.exports = {
 			},
 			{
 				test: /\.scss/,
-				use: [
-					'style-loader',
-					'css-loader',
-					'sass-loader',
-					{
-						loader: 'postcss-loader',
-						options: {
-							plugins: function() {
-                return [
-                  require('autoprefixer')
-                ];
-              }
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: [
+						'css-loader',
+						'sass-loader',
+						{
+							loader: 'postcss-loader',
+							options: {
+								plugins: function() {
+	                return [
+	                  require('autoprefixer')
+	                ];
+	              }
+							}
 						}
-					}
-				],
+					],
+				}),
 				include: path.resolve(__dirname, 'src')
 			}
 		]

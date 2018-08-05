@@ -51,6 +51,8 @@
     "url": "https://github.com/justinjung04/universal-boilerplate.git"
   },
   "dependencies": {
-    "react-helmet": "^5.2.0"
+    "js-cookie": "^2.2.0",
+    "react-helmet": "^5.2.0",
+    "redux-thunk": "^2.3.0"
   }
 }
